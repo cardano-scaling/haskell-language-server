@@ -882,7 +882,9 @@ newComponentCache recorder exts cradlePath _cfp hsc_env old_cis new_cis = do
               getSession
 #endif
       henv <- createHscEnvEq thisEnv (zip uids dfs)
-      let targetEnv = (if isBad ci then multi_errs else [], Just henv)
+      -- TODO: multi_errs seem to make HLS stuck
+      -- let targetEnv = (if isBad ci then multi_errs else [], Just henv)
+      let targetEnv = ([], Just henv)
           targetDepends = componentDependencyInfo ci
           res = ( targetEnv, targetDepends)
       logWith recorder Debug $ LogNewComponentCache res
